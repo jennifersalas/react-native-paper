@@ -212,6 +212,7 @@ const AnimatedFAB = ({
   extended = false,
   iconMode = 'dynamic',
   variant = 'primary',
+  labelMaxFontSizeMultiplier,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);
@@ -492,6 +493,7 @@ const AnimatedFAB = ({
           ]}
           theme={theme}
           testID={`${testID}-text`}
+          maxFontSizeMultiplier={labelMaxFontSizeMultiplier}
         >
           {label}
         </AnimatedText>

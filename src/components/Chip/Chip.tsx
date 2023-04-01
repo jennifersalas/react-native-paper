@@ -174,6 +174,7 @@ const Chip = ({
   ellipsizeMode,
   compact,
   elevated = false,
+  maxFontSizeMultiplier,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);
@@ -352,6 +353,7 @@ const Chip = ({
               textStyle,
             ]}
             ellipsizeMode={ellipsizeMode}
+            maxFontSizeMultiplier={maxFontSizeMultiplier}
           >
             {children}
           </Text>

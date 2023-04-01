@@ -87,6 +87,7 @@ const DrawerItem = ({
   onPress,
   accessibilityLabel,
   right,
+  labelMaxFontSizeMultiplier,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);
@@ -146,6 +147,7 @@ const DrawerItem = ({
                   ...font,
                 },
               ]}
+              maxFontSizeMultiplier={labelMaxFontSizeMultiplier}
             >
               {label}
             </Text>

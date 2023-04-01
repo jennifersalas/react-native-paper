@@ -49,6 +49,7 @@ export type Props = {
     style?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
     containerStyle?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
     labelStyle?: StyleProp<TextStyle>;
+    labelMaxFontSizeMultiplier?: number;
     onPress: (e: GestureResponderEvent) => void;
     size?: 'small' | 'medium';
     testID?: string;
@@ -403,6 +404,7 @@ const FABGroup = ({
                       <Text
                         variant="titleMedium"
                         style={[labelTextStyle, it.labelStyle]}
+                        maxFontSizeMultiplier={it.labelMaxFontSizeMultiplier}
                       >
                         {it.label}
                       </Text>

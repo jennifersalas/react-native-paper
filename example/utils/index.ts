@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 
+import ExpoMaterial3ThemeModule from '@pchmn/expo-material3-theme/build/ExpoMaterial3ThemeModule';
 import { MD3LightTheme, MD3DarkTheme, MD3Theme } from 'react-native-paper';
 
 type ReducerAction<T extends keyof State> = {
@@ -1416,3 +1417,8 @@ export const restaurantsData = [
     price: 4,
   },
 ];
+
+export const deviceColorsSupported =
+  Boolean(ExpoMaterial3ThemeModule) &&
+  Platform.OS === 'android' &&
+  Platform.Version >= 31;

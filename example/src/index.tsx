@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { I18nManager } from 'react-native';
 
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
@@ -27,36 +28,28 @@ import {
 } from 'react-native-paper';
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
-import { isWeb } from '../utils';
+import { deviceColorsSupported, isWeb } from '../utils';
 import DrawerItems from './DrawerItems';
 import App from './RootNavigator';
 
 const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 const PREFERENCES_KEY = 'APP_PREFERENCES';
 
-export const PreferencesContext = React.createContext<any>(null);
+export const PreferencesContext = React.createContext<{
+  toggleShouldUseDeviceColors: () => void;
+  toggleTheme: () => void;
+  toggleRtl: () => void;
+  toggleThemeVersion: () => void;
+  toggleCollapsed: () => void;
+  toggleCustomFont: () => void;
+  customFontLoaded: boolean;
+  collapsed: boolean;
+  rtl: boolean;
+  theme: MD2Theme | MD3Theme;
+  shouldUseDeviceColors: boolean;
+} | null>(null);
 
 export const useExampleTheme = () => useTheme<MD2Theme | MD3Theme>();
-
-const DrawerContent = () => {
-  return (
-    <PreferencesContext.Consumer>
-      {(preferences) => (
-        <DrawerItems
-          toggleTheme={preferences.toggleTheme}
-          toggleRTL={preferences.toggleRtl}
-          toggleThemeVersion={preferences.toggleThemeVersion}
-          toggleCollapsed={preferences.toggleCollapsed}
-          toggleCustomFont={preferences.toggleCustomFont}
-          customFontLoaded={preferences.customFontLoaded}
-          collapsed={preferences.collapsed}
-          isRTL={preferences.rtl}
-          isDarkTheme={preferences.theme.dark}
-        />
-      )}
-    </PreferencesContext.Consumer>
-  );
-};
 
 const Drawer = createDrawerNavigator<{ Home: undefined }>();
 
@@ -72,6 +65,8 @@ export default function PaperExample() {
     InitialState | undefined
   >();
 
+  const [shouldUseDeviceColors, setShouldUseDeviceColors] =
+    React.useState(true);
   const [isDarkMode, setIsDarkMode] = React.useState(false);
   const [themeVersion, setThemeVersion] = React.useState<2 | 3>(3);
   const [rtl, setRtl] = React.useState<boolean>(
@@ -80,18 +75,20 @@ export default function PaperExample() {
   const [collapsed, setCollapsed] = React.useState(false);
   const [customFontLoaded, setCustomFont] = React.useState(false);
 
-  const themeMode = isDarkMode ? 'dark' : 'light';
+  const { theme: mdTheme } = useMaterial3Theme();
+  const theme = React.useMemo(() => {
+    if (themeVersion === 2) {
+      return isDarkMode ? MD2DarkTheme : MD2LightTheme;
+    }
 
-  const theme = {
-    2: {
-      light: MD2LightTheme,
-      dark: MD2DarkTheme,
-    },
-    3: {
-      light: MD3LightTheme,
-      dark: MD3DarkTheme,
-    },
-  }[themeVersion][themeMode];
+    if (!deviceColorsSupported || !shouldUseDeviceColors) {
+      return isDarkMode ? MD3DarkTheme : MD3LightTheme;
+    }
+
+    return isDarkMode
+      ? { ...MD3DarkTheme, colors: mdTheme.dark }
+      : { ...MD3LightTheme, colors: mdTheme.light };
+  }, [isDarkMode, mdTheme, shouldUseDeviceColors, themeVersion]);
 
   React.useEffect(() => {
     const restoreState = async () => {
@@ -139,7 +136,7 @@ export default function PaperExample() {
         await AsyncStorage.setItem(
           PREFERENCES_KEY,
           JSON.stringify({
-            theme: themeMode,
+            theme: isDarkMode ? 'dark' : 'light',
             rtl,
           })
         );
@@ -156,10 +153,12 @@ export default function PaperExample() {
     };
 
     savePrefs();
-  }, [rtl, themeMode]);
+  }, [rtl, isDarkMode]);
 
   const preferences = React.useMemo(
     () => ({
+      toggleShouldUseDeviceColors: () =>
+        setShouldUseDeviceColors((oldValue) => !oldValue),
       toggleTheme: () => setIsDarkMode((oldValue) => !oldValue),
       toggleRtl: () => setRtl((rtl) => !rtl),
       toggleCollapsed: () => setCollapsed(!collapsed),
@@ -173,8 +172,9 @@ export default function PaperExample() {
       collapsed,
       rtl,
       theme,
+      shouldUseDeviceColors,
     }),
-    [rtl, theme, collapsed, customFontLoaded]
+    [rtl, theme, collapsed, customFontLoaded, shouldUseDeviceColors]
   );
 
   if (!isReady && !fontsLoaded) {
@@ -239,7 +239,7 @@ export default function PaperExample() {
                           width: collapsedDrawerWidth,
                         },
                       }}
-                      drawerContent={() => <DrawerContent />}
+                      drawerContent={() => <DrawerItems />}
                     >
                       <Drawer.Screen
                         name="Home"

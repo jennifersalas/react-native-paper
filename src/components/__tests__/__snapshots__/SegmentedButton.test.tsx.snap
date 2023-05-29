@@ -139,6 +139,7 @@ exports[`renders checked segmented button with selected check 1`] = `
           </Text>
         </View>
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -249,6 +250,7 @@ exports[`renders checked segmented button with selected check 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -377,6 +379,7 @@ exports[`renders disabled segmented button 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -487,6 +490,7 @@ exports[`renders disabled segmented button 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -613,6 +617,7 @@ exports[`renders segmented button 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -723,6 +728,7 @@ exports[`renders segmented button 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={

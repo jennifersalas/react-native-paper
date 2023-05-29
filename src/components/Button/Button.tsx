@@ -112,6 +112,10 @@ export type Props = $Omit<React.ComponentProps<typeof Surface>, 'mode'> & {
    * Use this prop to apply custom height and width and to set the icon on the right with `flexDirection: 'row-reverse'`.
    */
   contentStyle?: StyleProp<ViewStyle>;
+  /**
+   * Specifies the largest possible scale a text font can reach.
+   */
+  maxFontSizeMultiplier?: number;
   style?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
   /**
    * Style for the button text.
@@ -192,7 +196,7 @@ const Button = ({
   labelStyle,
   testID = 'button',
   accessible,
-  maxFontSizeMultiplier,
+  maxFontSizeMultiplier = 1.5,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);

@@ -38,6 +38,10 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
    */
   labelStyle?: StyleProp<TextStyle>;
   /**
+   * Specifies the largest possible scale a text font can reach.
+   */
+  maxFontSizeMultiplier?: number;
+  /**
    * @optional
    */
   theme?: ThemeProp;
@@ -69,7 +73,7 @@ const AvatarText = ({
   labelStyle,
   color: customColor,
   theme: themeOverrides,
-  maxFontSizeMultiplier,
+  maxFontSizeMultiplier = 1.5,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);

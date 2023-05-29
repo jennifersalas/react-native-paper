@@ -177,6 +177,7 @@ exports[`renders list section with custom title style 1`] = `
   }
 >
   <Text
+    maxFontSizeMultiplier={1.5}
     numberOfLines={1}
     style={
       Array [
@@ -324,6 +325,7 @@ exports[`renders list section with custom title style 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -465,6 +467,7 @@ exports[`renders list section with custom title style 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -678,6 +681,7 @@ exports[`renders list section with subheader 1`] = `
   }
 >
   <Text
+    maxFontSizeMultiplier={1.5}
     numberOfLines={1}
     style={
       Array [
@@ -823,6 +827,7 @@ exports[`renders list section with subheader 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -964,6 +969,7 @@ exports[`renders list section with subheader 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -1284,6 +1290,7 @@ exports[`renders list section without subheader 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={
@@ -1425,6 +1432,7 @@ exports[`renders list section without subheader 1`] = `
         }
       >
         <Text
+          maxFontSizeMultiplier={1.5}
           numberOfLines={1}
           selectable={false}
           style={

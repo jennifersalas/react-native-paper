@@ -96,6 +96,10 @@ export type Props = $Omit<$RemoveChildren<typeof Surface>, 'mode'> & {
    */
   extended: boolean;
   /**
+   * Specifies the largest possible scale a label font can reach.
+   */
+  labelMaxFontSizeMultiplier?: number;
+  /**
    * @supported Available in v5.x with theme version 3
    *
    * Color mappings variant for combinations of container and icon colors.
@@ -212,7 +216,7 @@ const AnimatedFAB = ({
   extended = false,
   iconMode = 'dynamic',
   variant = 'primary',
-  labelMaxFontSizeMultiplier,
+  labelMaxFontSizeMultiplier = 1.5,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);

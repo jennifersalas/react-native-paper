@@ -122,6 +122,10 @@ export type Props = $Omit<React.ComponentProps<typeof Surface>, 'mode'> & {
    * Ellipsize Mode for the children text
    */
   ellipsizeMode?: EllipsizeProp;
+  /**
+   * Specifies the largest possible scale a text font can reach.
+   */
+  maxFontSizeMultiplier?: number;
 };
 
 /**
@@ -174,7 +178,7 @@ const Chip = ({
   ellipsizeMode,
   compact,
   elevated = false,
-  maxFontSizeMultiplier,
+  maxFontSizeMultiplier = 1.5,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);

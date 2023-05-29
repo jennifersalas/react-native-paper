@@ -69,6 +69,10 @@ export type Props = $Omit<React.ComponentProps<typeof Surface>, 'mode'> & {
    * Changes Snackbar shadow and background on iOS and Android.
    */
   elevation?: 0 | 1 | 2 | 3 | 4 | 5 | Animated.Value;
+  /**
+   * Specifies the largest possible scale a text font can reach.
+   */
+  maxFontSizeMultiplier?: number;
   wrapperStyle?: StyleProp<ViewStyle>;
   style?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
   ref?: React.RefObject<View>;
@@ -143,7 +147,7 @@ const Snackbar = ({
   wrapperStyle,
   style,
   theme: themeOverrides,
-  maxFontSizeMultiplier,
+  maxFontSizeMultiplier = 1.5,
   ...rest
 }: Props) => {
   const theme = useInternalTheme(themeOverrides);

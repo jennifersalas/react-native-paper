@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Platform,
   Pressable,
-  ViewStyle,
 } from 'react-native';
 
 import type { ThemeProp } from 'src/types';
@@ -16,6 +15,8 @@ import { addEventListener } from '../../utils/addEventListener';
 import Portal from '../Portal/Portal';
 import Text from '../Typography/Text';
 import { getTooltipPosition, Measurement } from './utils';
+
+const isWeb = Platform.OS === 'web';
 
 export type Props = {
   /**
@@ -68,7 +69,7 @@ export type Props = {
 const Tooltip = ({
   children,
   enterTouchDelay = 500,
-  leaveTouchDelay = 1500,
+  leaveTouchDelay = 15000,
   title,
   theme: themeOverrides,
   ...rest
@@ -85,8 +86,6 @@ const Tooltip = ({
   const hideTooltipTimer = React.useRef<NodeJS.Timeout>();
   const childrenWrapperRef = React.useRef() as React.MutableRefObject<View>;
   const touched = React.useRef(false);
-
-  const isWeb = Platform.OS === 'web';
 
   React.useEffect(() => {
     return () => {
@@ -228,9 +227,9 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   pressContainer: {
-    cursor: 'default',
     alignSelf: 'flex-start',
-  } as ViewStyle,
+    ...(isWeb && { cursor: 'default' }),
+  },
 });
 
 export default Tooltip;
